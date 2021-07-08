@@ -1,0 +1,33 @@
+# This is a basic workflow to help you get started with Actions
+
+name: CI
+
+# Controls when the workflow will run
+on:
+  # Triggers the workflow on push or pull request events but only for the main branch
+  push:
+    branches: [ main ]
+  
+
+
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+  copy-files:
+  
+    # The type of runner that the job will run on
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v2
+
+    - name: Pushes test file
+      uses: dmnemec/copy_file_to_another_repo_action@main
+      env:
+        API_TOKEN_GITHUB: ${{ secrets.API_TOKEN_GITHUB }}
+      with:
+        source_file: './FolderToSync'
+        destination_repo: 'r-thirumaran/RepoA'
+        destination_folder: './'
+        user_email: 'example@email.com'
+        user_name: 'dmnemec'
+        commit_message: 'Test Workflow commit'
